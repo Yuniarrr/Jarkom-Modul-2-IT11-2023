@@ -207,6 +207,58 @@ Soal :
 
 Dengan cara yang sama seperti soal nomor 2, buatlah website utama dengan akses ke abimanyu.yyy.com dan alias www.abimanyu.yyy.com.
 
+Menambahkan konfigurasi dibawah pada **/etc/bind/named.conf.local**
+
+```
+zone "abimanyu.it11.com" {
+    type master;
+    file "/etc/bind/zones/abimanyu.it11.com.zone";
+};
+```
+
+Membuat folder zones dan memasukkan konfigurasi ke dalam file **/etc/bind/zones/abimanyu.it11.com.zone**
+
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     abimanyu.it11.com. root.abimanyu.it11.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@             IN      NS      abimanyu.it11.com.
+@             IN      A       10.69.3.3 ; IP abimanyu
+www           IN      CNAME   abimanyu.it11.com.
+```
+
+Kemudian, restart bind dengan command
+
+```
+service bind9 restart
+```
+
+Pengecekan dapat dilakukan dengan 2 cara, yaitu:
+
+1. Dengan nslookup
+
+![nslookup abimanyu.it11.com](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/88996914/973109c3-ac27-443c-b1ee-9c08efea3cb1)
+
+2. Lakukan ping pada nodes client ( Nakula / Sadewa )
+
+Tambahkan IP Yudhistira pada /etc/resolv.conf
+
+```
+nameserver 10.69.1.2
+```
+
+Lakukan ping pada nodes client
+
+![ping abimanyu.it11.com](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/88996914/ca3d2726-6784-401d-befa-ddc1e18c9c2e)
+
 ## Soal 4
 
 Soal :
