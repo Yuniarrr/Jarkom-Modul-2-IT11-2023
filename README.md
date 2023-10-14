@@ -574,6 +574,44 @@ Soal :
 
 Untuk informasi yang lebih spesifik mengenai Ranjapan Baratayuda, buatlah subdomain melalui Werkudara dengan akses rjp.baratayuda.abimanyu.yyy.com dengan alias www.rjp.baratayuda.abimanyu.yyy.com yang mengarah ke Abimanyu.
 
+Menambahkan konfigurasi pada **/etc/bind/named.conf.local**
+
+```
+zone "rjp.baratayuda.abimanyu.it11.com" {
+    type master;
+    file "/etc/bind/zones/rjp.baratayuda.abimanyu.it11.com.zone";
+};
+```
+
+Membuat file **/etc/bind/zones/rjp.baratayuda.abimanyu.it11.com.zone** pada Werkudara
+
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     rjp.baratayuda.abimanyu.it11.com. root.rjp.baratayuda.abimanyu.it11.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      rjp.baratayuda.abimanyu.it11.com.
+
+; DNS Records
+@           IN      A       10.69.3.3
+www         IN      CNAME   rjp.baratayuda.abimanyu.it11.com.
+```
+
+Kemudian, restart bind dengan command
+
+```
+service bind9 restart
+```
+
+![ping baratayuda](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/88996914/5355643d-eb98-4f0d-845f-01ad0aa414f0)
+
 ## Soal 9
 
 Soal :
