@@ -769,6 +769,31 @@ Kemudian gunakan algoritma Round Robin untuk Load Balancer pada Arjuna. Gunakan 
     - Abimanyu:8002
     - Wisanggeni:8003
 
+Membuat konfigurasi pada node Arjuna untuk load balancer pada file **/etc/nginx/sites-available/load-balancer**
+
+```
+upstream webserver {
+    server 10.69.3.2:8001; # IP Prabukusuma
+    server 10.69.3.3:8002; # IP Abimanyu
+    server 10.69.3.4:8003; # IP Wisanggeni
+}
+server {
+    listen 80;
+    server_name arjuna.it11.com www.arjuna.it11.com;
+    location / {
+        proxy_pass http://webserver;
+    }
+}
+```
+
+Mejalankan command
+
+```
+ln -s /etc/nginx/sites-available/load-balancer /etc/nginx/sites-enabled/load-balancer
+
+service nginx restart
+```
+
 ## Soal 11
 
 Soal :
