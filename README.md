@@ -508,6 +508,66 @@ Soal :
 
 Seperti yang kita tahu karena banyak sekali informasi yang harus diterima, buatlah subdomain khusus untuk perang yaitu baratayuda.abimanyu.yyy.com dengan alias www.baratayuda.abimanyu.yyy.com yang didelegasikan dari Yudhistira ke Werkudara dengan IP menuju ke Abimanyu dalam folder Baratayuda.
 
+Mengubah file **/etc/bind/zones/abimanyu.it11.com.zone** pada Yudhistira
+
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     abimanyu.it11.com. root.abimanyu.it11.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@             IN      NS      abimanyu.it11.com.
+@             IN      A       10.69.3.3 ; IP abimanyu
+www           IN      CNAME   abimanyu.it11.com.
+parikesit     IN      A       10.69.3.3 ; IP abimanyu
+www.parikesit IN      CNAME   parikesit.abimanyu.it11.com.
+ns1           IN      A       10.69.2.2 ; IP Werkudara
+baratayuda    IN      NS      ns1
+```
+
+Kemudian tambahkan konfigurasi pada Werkudara, pada file **/etc/bind/named.conf.local**
+
+```
+zone "baratayuda.abimanyu.it11.com" {
+    type master;
+    file "/etc/bind/zones/baratayuda.abimanyu.it11.com.zone";
+};
+```
+
+Membuat folder zones dan memasukkan konfigurasi ke dalam file **/etc/bind/zones/baratayuda.abimanyu.it11.com.zone**
+
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     baratayuda.abimanyu.it11.com. root.baratayuda.abimanyu.it11.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      baratayuda.abimanyu.it11.com.
+; DNS Records
+@           IN      A       10.69.3.3 
+www         IN      CNAME   baratayuda.abimanyu.it11.com.
+```
+
+Kemudian, restart bind dengan command
+
+```
+service bind9 restart
+```
+
+![ping baratayuda](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/88996914/0474e228-161d-4f6b-acb8-4c7541ef2fb3)
+
 ## Soal 8
 
 Soal :
