@@ -141,6 +141,66 @@ Soal :
 
 Buatlah website utama pada node arjuna dengan akses ke arjuna.yyy.com dengan alias www.arjuna.yyy.com dengan yyy merupakan kode kelompok.
 
+Lakukan telnet pada node Yudhistira dan jalankan perintah berikut
+
+```
+apt-get update
+apt-get install bind9 dnsutils -y
+```
+
+Menambahkan konfigurasi dibawah pada **/etc/bind/named.conf.local**
+
+```
+zone "arjuna.it11.com" {
+    type master;
+    file "/etc/bind/zones/arjuna.it11.com.zone";
+};
+```
+
+Membuat folder zones dan memasukkan konfigurasi ke dalam file **/etc/bind/zones/arjuna.it11.com.zone**
+
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     arjuna.it11.com. root.arjuna.it11.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      arjuna.it11.com.
+; DNS Records
+@           IN      A       10.69.3.5 ; IP Utama
+www         IN      CNAME   arjuna.it11.com.
+```
+
+Kemudian, restart bind dengan command
+
+```
+service bind9 restart
+```
+
+Pengecekan dapat dilakukan dengan 2 cara, yaitu:
+
+1. Dengan nslookup
+
+![nslookup arjuna.it11.com](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/88996914/242d3b89-7201-4b60-90f5-8f922b685e41)
+
+2. Lakukan ping pada nodes client ( Nakula / Sadewa )
+
+Tambahkan IP Yudhistira pada /etc/resolv.conf
+
+```
+nameserver 10.69.1.2
+```
+
+Lakukan ping pada nodes client
+
+![ping arjuna.it11.com](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/88996914/d94dafce-0e5f-4da5-8979-cc95910b46bd)
+
 ## Soal 3 
 
 Soal :
