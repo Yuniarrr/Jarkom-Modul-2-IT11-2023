@@ -316,6 +316,47 @@ Soal :
 
 Buat juga reverse domain untuk domain utama. (Abimanyu saja yang direverse)
 
+Menambahkan konfigurasi dibawah pada **/etc/bind/named.conf.local**
+
+```
+zone "3.69.10.in-addr.arpa" {
+    type master;
+    file "/etc/bind/zones/3.69.10.in-addr.arpa";
+};
+```
+
+Membuat folder zones dan memasukkan konfigurasi ke dalam file **/etc/bind/zones/3.69.10.in-addr.arpa**
+
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     abimanyu.it11.com. root.abimanyu.it11.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+; PTR Records
+3.69.10.in-addr.arpa.    IN      NS      abimanyu.it11.com.
+3                        IN      PTR     abimanyu.it11.com.
+```
+
+Kemudian, restart bind dengan command
+
+```
+service bind9 restart
+```
+
+Pengecekan dapat dilakukan dengan menjalankan perintah
+
+```
+host -t PTR 10.69.3.3
+```
+
+![ping parikesit.abimanyu.it11.com](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/88996914/a50bd247-d863-4739-8775-fbd1a4a53813)
+
 ## Soal 6
 
 Soal :
