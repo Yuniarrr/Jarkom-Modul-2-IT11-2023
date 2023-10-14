@@ -405,6 +405,103 @@ Soal :
 
 Agar dapat tetap dihubungi ketika DNS Server Yudhistira bermasalah, buat juga Werkudara sebagai DNS Slave untuk domain utama.
 
+Modifikasi konfigurasi pada **/etc/bind/named.conf.local** pada Yudhistira
+
+```
+zone "arjuna.it11.com" {
+    type master;
+    notify yes;
+    also-notify { 10.69.2.2; };
+    allow-transfer { 10.69.2.2; };
+    file "/etc/bind/zones/arjuna.it11.com.zone";
+};
+
+zone "abimanyu.it11.com" {
+    type master;
+    notify yes;
+    also-notify { 10.69.2.2; };
+    allow-transfer { 10.69.2.2; };
+    file "/etc/bind/zones/abimanyu.it11.com.zone";
+};
+```
+
+Kemudian lakukan konfigurasi pada Werkudara, pada file **/etc/bind/named.conf.local**
+
+```
+zone "abimanyu.it11.com" {
+    type slave;
+    masters { 10.69.1.2; }; # IP Yudhistira
+    file "/etc/bind/zones/slave.abimanyu.it11.com.zone";
+};
+
+zone "arjuna.it11.com" {
+    type slave;
+    masters { 10.69.1.2; }; # IP Yudhistira
+    file "/etc/bind/zones/slave.arjuna.it11.com.zone";
+};
+```
+
+Membuat folder zones dan memasukkan konfigurasi ke dalam file **/etc/bind/zones/slave.abimanyu.it11.com.zone**
+
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     abimanyu.it11.com. root.abimanyu.it11.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      abimanyu.it11.com.
+; DNS Records
+@           IN      A       10.69.3.3
+www         IN      CNAME   abimanyu.it11.com.
+parikesit   IN      A       10.69.3.3
+```
+
+Memasukkan konfigurasi ke dalam file **/etc/bind/zones/slave.arjuna.it11.com.zone**
+
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     arjuna.it11.com. root.arjuna.it11.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      arjuna.it11.com.
+; DNS Records
+@           IN      A       10.69.3.5 ; IP Utama
+www         IN      CNAME   arjuna.it11.com.
+```
+
+Kemudian, restart bind dengan command
+
+```
+service bind9 restart
+```
+
+Pengecekan dapat dilakukan dengan memasukkan IP Werkudara ke client pada file **/etc/resolv.conf**, seperti dibawah
+
+```
+#IP Yudhistira
+#nameserver 10.69.1.2
+#IP Werkudara
+nameserver 10.69.2.2
+#nameserver 192.168.122.1
+```
+
+![ping arjuna](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/88996914/9b16a968-7a89-4d8a-a14c-30d6d7775c5e)
+
+![ping abimanyu](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/88996914/bb2c9d9d-6ae4-4e69-bfcc-c62b9b0fefd8)
+
 ## Soal 7
 
 Soal :
