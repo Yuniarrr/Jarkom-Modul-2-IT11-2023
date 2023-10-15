@@ -665,6 +665,14 @@ service php7.2-fpm start
 service php7.2-fpm status
 ```
 
+Dapat diakses dengan cara
+
+```
+lynx http://10.69.3.2:8001
+```
+
+![prabukusuma](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/88996914/398652c3-a12a-4c26-945b-a9d4f5212305)
+
 Pada nodes **Wisanggeni**
 
 Membuat file **/var/www/jarkom/index.php**
@@ -712,6 +720,14 @@ service php7.2-fpm start
 service php7.2-fpm status
 ```
 
+Dapat diakses dengan cara
+
+```
+lynx http://10.69.3.4:8003
+```
+
+![wisanggeni](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/88996914/cb563344-1cb2-4650-9dee-5b95232c5494)
+
 Pada nodes **Abimanyu**
 
 Membuat file **/var/www/jarkom/index.php**
@@ -758,6 +774,14 @@ service php7.2-fpm start
 
 service php7.2-fpm status
 ```
+
+Dapat diakses dengan cara
+
+```
+lynx http://10.69.3.3:8002
+```
+
+![abimanyu](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/88996914/f68b9abb-a9da-4aff-b991-585c7b213721)
 
 ## Soal 10
 
