@@ -1080,10 +1080,12 @@ maka ketika kita mengakses ```lynx http://www.rjp.baratayuda.abimanyu.it11.com:1
 
 dan permintaan password
 
+
 ![password](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/dee0023f-44b7-4817-b486-70d426a03c2b)
 
 
 jika sudah maka akan ditampilkan 
+
 
 ![baratayuda_success](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/5e4edf78-13d3-4849-a496-4bbc78edd3ed)
 
@@ -1099,7 +1101,10 @@ ServerAlias 10.69.3.3
 ```
 sehingga saat mengakses ```lynx http://10.69.3.3``` akan ditampilkan halaman home
 
+
 ![terminal](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/263f4a83-a885-45ab-b6f5-1744c7719d4e)
+
+
 
 
 ![home_ip_abimanyu](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/5447d043-1e59-4a9b-93d6-7991b10d7ef1)
