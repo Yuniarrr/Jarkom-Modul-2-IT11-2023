@@ -818,6 +818,18 @@ ln -s /etc/nginx/sites-available/load-balancer /etc/nginx/sites-enabled/load-bal
 service nginx restart
 ```
 
+Dapat diakses dengan cara
+
+```
+lynx http://www.arjuna.it11.com
+```
+
+![upstream arjuna prabukusuma](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/88996914/398652c3-a12a-4c26-945b-a9d4f5212305)
+
+![upstream arjuna abimanyu](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/88996914/f68b9abb-a9da-4aff-b991-585c7b213721)
+
+![upstream arjuna wisanggeni](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/88996914/cb563344-1cb2-4650-9dee-5b95232c5494)
+
 ## Soal 11
 
 Soal :
