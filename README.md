@@ -1,4 +1,4 @@
-![image](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/38f02a4a-d065-4da8-a12f-6405100f19b7)# Jarkom-Modul-2-IT11-2023
+# Jarkom-Modul-2-IT11-2023
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. Dyas Amorita Radhwa Nashirah (5027211009)
 
