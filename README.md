@@ -1141,10 +1141,7 @@ sehingga saat mengakses ```lynx http://10.69.3.3``` akan ditampilkan halaman hom
 ![terminal](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/263f4a83-a885-45ab-b6f5-1744c7719d4e)
 
 
-
-
-![home_ip_abimanyu](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/5447d043-1e59-4a9b-93d6-7991b10d7ef1)
-
+![tampilan_abimanyu](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/0bfc2302-54eb-479e-80f9-06b9be54ef26)
 
 ## Soal 20
 
