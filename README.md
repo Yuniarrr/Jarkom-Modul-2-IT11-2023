@@ -866,6 +866,8 @@ service apache2 status
 ```
 Untuk melakukan pengecekan maka pergi ke terminal client **Sadewa / Nakula** dan cek menggunakan perintah ``lynx http://www.abimanyu.it11.com/home``
 maka akan muncul tampilan halaman home abimanyu sama seperti soal no 11
+
+
 ![image](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/56fb6733-d56a-414f-ab56-f65770cbb275)
 
 
@@ -905,6 +907,8 @@ rm -rf parikesit-abimanyu-it11/parikesit.abimanyu.yyy.com
 
 Untuk melakukan pengecekan maka pergi ke terminal client **Sadewa / Nakula** dan cek menggunakan perintah ``lynx http://www.parikesit.abimanyu.it11.com``
 maka akan ditampilkan halaman website
+
+
 ![web_parikesit](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/ca956ea9-6f14-4509-b2fd-51fa2e9adf3f)
 
 
@@ -926,9 +930,11 @@ untuk melakukan ini, maka menambahkan kode pada **/etc/apache2/sites-available/p
 </Directory>
 ```
 maka ketika mengakses ```lynx http://www.parikesit.abimanyu.it11.com/public``` pada client akan ditampilkan halaman berikut
+
 ![parikesit_public](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/88b5b5a6-3107-49d3-9bed-d419562000f3)
 
 sedangkan ketika mengakses ```lynx http://www.parikesit.abimanyu.it11.com/secret``` pada client akan ditampilkan halaman berikut
+
 ![secret](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/8bc856fb-d28d-49fc-bba9-41e4e1881666)
 
 
@@ -946,6 +952,7 @@ ErrorDocument 403 /error/403.html
 ```
 
 maka ketika mengakses ```lynx http://www.parikesit.abimanyu.it11.com/secret``` pada client akan ditampilkan halaman berikut
+
 ![secrt](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/bb2bbcc2-1af2-4a9b-8444-0677063e6e46)
 
 sedangkan ketika mengakses ```lynx http://www.parikesit.abimanyu.it11.com``` dengan tambahan string acak/halaman yang tidak tersedia, contohnya ```lynx http://www.parikesit.abimanyu.it11.com/acak``` maka pada client akan ditampilkan eror 404 diikuti dengan halaman berikut
@@ -979,6 +986,7 @@ service apache2 start
 service apache2 status
 ```
 maka ketika mengakses suatu halaman cukum menuliskan perintah ```lynx http://www.parikesit.abimanyu.it11.com/js``` pada client dan akan ditampilkan halaman berikut
+
 ![/js](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/d587c07e-4a45-4a0e-8a37-298cbc1b27f4)
 
 ## Soal 17
@@ -1020,10 +1028,12 @@ Listen 14400
 ```
 
 yang terjadi adalah ketika kita mengakses website dengan perintah ```lynx http://www.rjp.baratayuda.abimanyu.it11.com``` saja, maka akan ditampilkan halaman berikut:
+
 ![no_access](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/97fa6f20-7452-4b53-9111-28b88d81cdd6)
 
 untuk mengaksesnya maka perlu ada tambahan port seperti ```lynx http://www.rjp.baratayuda.abimanyu.it11.com:14000``` atau ```lynx http://www.rjp.baratayuda.abimanyu.it11.com:14400```
 maka tampilannya akan seperti ini
+
 ![baratayuda_success](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/5e4edf78-13d3-4849-a496-4bbc78edd3ed)
 
 
@@ -1059,16 +1069,22 @@ service apache2 reload
 service apache2 start
 service apache2 status
 ```
+
 masukkan password yang sudah ditentukan yaitu baratayudait11 ketika diminta oleh terminal saat menjalankan kode
+
 ![image](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/6ca8601f-7d47-46fe-abd7-b32153c4fab9)
 
 maka ketika kita mengakses ```lynx http://www.rjp.baratayuda.abimanyu.it11.com:14000``` atau ```lynx http://www.rjp.baratayuda.abimanyu.it11.com:14400``` akan ditunjukkan halaman autentifikasi user seperti berikut:
+
 ![user](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/6bcecba8-15f9-438f-8be5-f0b13f148760)
 
 dan permintaan password
+
 ![password](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/dee0023f-44b7-4817-b486-70d426a03c2b)
 
+
 jika sudah maka akan ditampilkan 
+
 ![baratayuda_success](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/5e4edf78-13d3-4849-a496-4bbc78edd3ed)
 
 ## Soal 19
@@ -1082,7 +1098,9 @@ Tambahkan kode beikut pada **/etc/apache2/sites-available/abimanyu-it11.conf**
 ServerAlias 10.69.3.3
 ```
 sehingga saat mengakses ```lynx http://10.69.3.3``` akan ditampilkan halaman home
+
 ![terminal](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/263f4a83-a885-45ab-b6f5-1744c7719d4e)
+
 
 ![home_ip_abimanyu](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/5447d043-1e59-4a9b-93d6-7991b10d7ef1)
 
@@ -1102,9 +1120,12 @@ Tambahkan kode beikut pada **/etc/apache2/sites-available/parikesit-abimanyu-it1
 
 ```
 maka ketika kita mengakses website dengan tambahan string yang mengandung kata abimanyu seperti ```lynx http://www.parikesit.abimanyu.it11.com/abimanyu``` atau bahkan huruf acak yang mengandung kata abimanyu seperti ```lynx http://www.parikesit.abimanyu.it11.com/dkfkwabimanyu```
+
 ![terminal_parikesit](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/53673162-96b3-46c5-a380-ce747f4b4071)
 
 
 maka akan ditampilkan tampilan yang meminta persetujuan untuk mendownload file png dimana file tersebut merupakan file abimanyu.png
+
+
 ![izin_download](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/584fdb02-8279-4490-9857-d80fb8da1125)
 
