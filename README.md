@@ -1,4 +1,4 @@
-# Jarkom-Modul-2-IT11-2023
+![image](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/38f02a4a-d065-4da8-a12f-6405100f19b7)# Jarkom-Modul-2-IT11-2023
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. Dyas Amorita Radhwa Nashirah (5027211009)
 
@@ -800,11 +800,74 @@ Soal :
 
 Selain menggunakan Nginx, lakukan konfigurasi Apache Web Server pada worker Abimanyu dengan web server www.abimanyu.yyy.com. Pertama dibutuhkan web server dengan DocumentRoot pada /var/www/abimanyu.yyy
 
+Membuat konfigurasi pada **/etc/apache2/sites-available/abimanyu-it11.conf**
+```
+<VirtualHost *:80>
+    ServerName abimanyu.it11.com
+    ServerAlias www.abimanyu.it11.com
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/abimanyu-it11
+
+    <Directory /var/www/abimanyu-it11>
+        Options +Indexes
+    </Directory>
+
+    RewriteEngine On
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+
+membuat perintah untuk download kebutuhan website dari google drive serta meletakkannya pada direktori **var/www/**
+```
+cd /var/www
+
+wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1a4V23hwK9S7hQEDEcv9FL14UkkrHc-Zc' -O abimanyu
+
+unzip abimanyu -d abimanyu-it11
+
+rm abimanyu
+
+mv abimanyu-it11/abimanyu.yyy.com/* abimanyu-it11
+
+rmdir abimanyu-it11/abimanyu.yyy.com
+```
+
+untuk mengecek apakah konfigurasinya berhasil, pergi ke terminal client **Sadewa / Nakula** dan cek menggunakan perintah ``lynx http://www.abimanyu.it11.com``
+maka akan muncul tampilan halaman home abimanyu
+
+![tampilan_abimanyu](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/0bfc2302-54eb-479e-80f9-06b9be54ef26)
+
 ## Soal 12
 
 Soal :
 
 Setelah itu ubahlah agar url www.abimanyu.yyy.com/index.php/home menjadi www.abimanyu.yyy.com/home.
+
+Untuk melkukan konfigurasi, ditambahkan kode berikut pada **/etc/apache2/sites-available/abimanyu-it11.conf**
+```
+<Directory /var/www/abimanyu-it11>
+        Options +Indexes
+    </Directory>
+
+    Alias /home /var/www/abimanyu-it11/index.php/home
+```
+kemudian menjalankan perintah untuk menjalankan konfigurasi
+
+```
+cd /etc/apache2/sites-available/
+
+a2enmod rewrite
+a2ensite abimanyu-it11.conf
+service apache2 reload
+service apache2 start
+service apache2 status
+```
+Untuk melakukan pengecekan maka pergi ke terminal client **Sadewa / Nakula** dan cek menggunakan perintah ``lynx http://www.abimanyu.it11.com/home``
+maka akan muncul tampilan halaman home abimanyu sama seperti soal no 11
+![image](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/56fb6733-d56a-414f-ab56-f65770cbb275)
+
 
 ## Soal 13
 
@@ -812,17 +875,83 @@ Soal :
 
 Selain itu, pada subdomain www.parikesit.abimanyu.yyy.com, DocumentRoot disimpan pada /var/www/parikesit.abimanyu.yyy
 
+masukkan konfigurasi untuk website pada **/etc/apache2/sites-available/parikesit-abimanyu-it11.conf**
+```
+<VirtualHost *:80>
+    ServerName parikesit.abimanyu.it11.com
+    ServerAlias www.parikesit.abimanyu.it11.com
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/parikesit-abimanyu-it11
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+kemudian jalankan code untuk melakukan download kebutuhan website dari drive yang telah disediakan
+
+```
+cd /var/www
+
+wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1LdbYntiYVF_NVNgJis1GLCLPEGyIOreS' -O parikesit.zip
+
+unzip parikesit.zip -d parikesit-abimanyu-it11
+
+rm parikesit.zip
+
+mv parikesit-abimanyu-it11/parikesit.abimanyu.yyy.com/* parikesit-abimanyu-it11
+
+rm -rf parikesit-abimanyu-it11/parikesit.abimanyu.yyy.com
+```
+
+Untuk melakukan pengecekan maka pergi ke terminal client **Sadewa / Nakula** dan cek menggunakan perintah ``lynx http://www.parikesit.abimanyu.it11.com``
+maka akan ditampilkan halaman website
+![web_parikesit](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/ca956ea9-6f14-4509-b2fd-51fa2e9adf3f)
+
+
 ## Soal 14
 
 Soal :
 
 Pada subdomain tersebut folder /public hanya dapat melakukan directory listing sedangkan pada folder /secret tidak dapat diakses (403 Forbidden).
 
+untuk melakukan ini, maka menambahkan kode pada **/etc/apache2/sites-available/parikesit-abimanyu-it11.conf** untuk menyalakan directory listing pada folder /public, dan mematikan directory listing pada /secret
+
+```
+<Directory /var/www/parikesit-abimanyu-it11/public>
+   Options +Indexes
+</Directory>
+
+<Directory /var/www/parikesit-abimanyu-it11/secret>
+   Options -Indexes
+</Directory>
+```
+maka ketika mengakses ```lynx http://www.parikesit.abimanyu.it11.com/public``` pada client akan ditampilkan halaman berikut
+![parikesit_public](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/88b5b5a6-3107-49d3-9bed-d419562000f3)
+
+sedangkan ketika mengakses ```lynx http://www.parikesit.abimanyu.it11.com/secret``` pada client akan ditampilkan halaman berikut
+![secret](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/8bc856fb-d28d-49fc-bba9-41e4e1881666)
+
+
 ## Soal 15
 
 Soal :
 
 Buatlah kustomisasi halaman error pada folder /error untuk mengganti error kode pada Apache. Error kode yang perlu diganti adalah 404 Not Found dan 403 Forbidden.
+
+untuk melakukan hal ini maka tambahkan kode berikut pada **/etc/apache2/sites-available/parikesit-abimanyu-it11.conf**
+
+```
+ErrorDocument 404 /error/404.html
+ErrorDocument 403 /error/403.html
+```
+
+maka ketika mengakses ```lynx http://www.parikesit.abimanyu.it11.com/secret``` pada client akan ditampilkan halaman berikut
+![secrt](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/bb2bbcc2-1af2-4a9b-8444-0677063e6e46)
+
+sedangkan ketika mengakses ```lynx http://www.parikesit.abimanyu.it11.com``` dengan tambahan string acak/halaman yang tidak tersedia, contohnya ```lynx http://www.parikesit.abimanyu.it11.com/acak``` maka pada client akan ditampilkan eror 404 diikuti dengan halaman berikut
+
+![acak](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/9c018fb4-93fa-44cf-a3b5-a83232879d65)
+
 
 ## Soal 16
 
@@ -831,11 +960,72 @@ Soal :
 Buatlah suatu konfigurasi virtual host agar file asset www.parikesit.abimanyu.yyy.com/public/js menjadi 
 www.parikesit.abimanyu.yyy.com/js 
 
+untuk melakukan hal ini maka tambahkan kode berikut pada **/etc/apache2/sites-available/parikesit-abimanyu-it11.conf**
+
+```
+Alias /js /var/www/parikesit-abimanyu-it11/public/js
+
+RewriteEngine On
+```
+
+dan jalankan perintah berikut pada terminal
+```
+cd /etc/apache2/sites-available/
+
+a2enmod rewrite
+a2ensite parikesit-abimanyu-it11.conf
+service apache2 reload
+service apache2 start
+service apache2 status
+```
+maka ketika mengakses suatu halaman cukum menuliskan perintah ```lynx http://www.parikesit.abimanyu.it11.com/js``` pada client dan akan ditampilkan halaman berikut
+![/js](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/d587c07e-4a45-4a0e-8a37-298cbc1b27f4)
+
 ## Soal 17
 
 Soal :
 
 Agar aman, buatlah konfigurasi agar www.rjp.baratayuda.abimanyu.yyy.com hanya dapat diakses melalui port 14000 dan 14400.
+
+Masukkan konfigurasi untuk website pada **/etc/apache2/sites-available/rjp-baratayuda-abimanyu-it11.conf**
+
+```
+<VirtualHost *:14000 *:14400>
+    ServerName rjp.baratayuda.abimanyu.it11.com
+    ServerAlias www.rjp.baratayuda.abimanyu.it11.com
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/rjp-baratayuda-abimanyu
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+kode ```<VirtualHost *:14000 *:14400>``` berfungsi untuk mengkonigurasikan dari port mana saja website tersebut dapat diakses, sesuai dengan perintah pada soal maka dikonfigurasikan untuk port 14000 dan 14400
+
+tambahkan juga kode berikut pada **/etc/apache2/ports.conf** untuk melakukan konfigurasi port
+```
+Listen 80
+Listen 14000
+Listen 14400
+
+<IfModule ssl_module>
+        Listen 443
+</IfModule>
+
+<IfModule mod_gnutls.c>
+        Listen 443
+</IfModule>
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+```
+
+yang terjadi adalah ketika kita mengakses website dengan perintah ```lynx http://www.rjp.baratayuda.abimanyu.it11.com``` saja, maka akan ditampilkan halaman berikut:
+![no_access](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/97fa6f20-7452-4b53-9111-28b88d81cdd6)
+
+untuk mengaksesnya maka perlu ada tambahan port seperti ```lynx http://www.rjp.baratayuda.abimanyu.it11.com:14000``` atau ```lynx http://www.rjp.baratayuda.abimanyu.it11.com:14400```
+maka tampilannya akan seperti ini
+![baratayuda_success](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/5e4edf78-13d3-4849-a496-4bbc78edd3ed)
+
 
 ## Soal 18
 
@@ -843,14 +1033,78 @@ Soal :
 
 Untuk mengaksesnya buatlah autentikasi username berupa “Wayang” dan password “baratayudayyy” dengan yyy merupakan kode kelompok. Letakkan DocumentRoot pada /var/www/rjp.baratayuda.abimanyu.yyy.
 
+Untuk melakukan hal ini tambahkan konfigurasi untuk website pada **/etc/apache2/sites-available/rjp-baratayuda-abimanyu-it11.conf**
+
+```
+ <Directory "/var/www/rjp-baratayuda-abimanyu">
+        Options +FollowSymLinks -Multiviews
+        AllowOverride All
+        AuthType Basic
+        AuthName "Restricted Content"
+        AuthUserFile /etc/apache2/.htpasswd
+        Require valid-user
+    </Directory>
+```
+Kemudian jalankan perintah berikut pada terminal untuk melakukan konfigurasi autentikasi user
+```
+cd /etc/apache2/sites-available/
+
+htpasswd -c /etc/apache2/.htpasswd Wayang
+```
+dan jalankan perintah berikut untuk menerapkan konfigurasi
+
+```
+a2ensite rjp-baratayuda-abimanyu-it11.conf
+service apache2 reload
+service apache2 start
+service apache2 status
+```
+masukkan password yang sudah ditentukan yaitu baratayudait11 ketika diminta oleh terminal saat menjalankan kode
+![image](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/6ca8601f-7d47-46fe-abd7-b32153c4fab9)
+
+maka ketika kita mengakses ```lynx http://www.rjp.baratayuda.abimanyu.it11.com:14000``` atau ```lynx http://www.rjp.baratayuda.abimanyu.it11.com:14400``` akan ditunjukkan halaman autentifikasi user seperti berikut:
+![user](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/6bcecba8-15f9-438f-8be5-f0b13f148760)
+
+dan permintaan password
+![password](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/dee0023f-44b7-4817-b486-70d426a03c2b)
+
+jika sudah maka akan ditampilkan 
+![baratayuda_success](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/5e4edf78-13d3-4849-a496-4bbc78edd3ed)
+
 ## Soal 19
 
 Soal :
 
 Buatlah agar setiap kali mengakses IP dari Abimanyu akan secara otomatis dialihkan ke www.abimanyu.yyy.com (alias)
 
+Tambahkan kode beikut pada **/etc/apache2/sites-available/abimanyu-it11.conf**
+```
+ServerAlias 10.69.3.3
+```
+sehingga saat mengakses ```lynx http://10.69.3.3``` akan ditampilkan halaman home
+![terminal](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/263f4a83-a885-45ab-b6f5-1744c7719d4e)
+
+![home_ip_abimanyu](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/5447d043-1e59-4a9b-93d6-7991b10d7ef1)
+
+
 ## Soal 20
 
 Soal :
 
 Karena website www.parikesit.abimanyu.yyy.com semakin banyak pengunjung dan banyak gambar gambar random, maka ubahlah request gambar yang memiliki substring “abimanyu” akan diarahkan menuju abimanyu.png.
+Tambahkan kode beikut pada **/etc/apache2/sites-available/parikesit-abimanyu-it11.conf**
+```
+# Tambahkan aturan RewriteCond untuk mencocokkan permintaan yang mengandung "abimanyu"
+    RewriteCond %{REQUEST_URI} abimanyu [NC]
+
+    # Terapkan aturan RewriteRule untuk mengarahkan permintaan ke /public/images/abimanyu.png
+    RewriteRule (.*) /public/images/abimanyu.png [L]
+
+```
+maka ketika kita mengakses website dengan tambahan string yang mengandung kata abimanyu seperti ```lynx http://www.parikesit.abimanyu.it11.com/abimanyu``` atau bahkan huruf acak yang mengandung kata abimanyu seperti ```lynx http://www.parikesit.abimanyu.it11.com/dkfkwabimanyu```
+![terminal_parikesit](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/53673162-96b3-46c5-a380-ce747f4b4071)
+
+
+maka akan ditampilkan tampilan yang meminta persetujuan untuk mendownload file png dimana file tersebut merupakan file abimanyu.png
+![izin_download](https://github.com/Yuniarrr/Jarkom-Modul-2-IT11-2023/assets/107184933/584fdb02-8279-4490-9857-d80fb8da1125)
+
